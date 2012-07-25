@@ -1,9 +1,8 @@
 package com.ryan.core.bom;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import com.mysql.jdbc.Connection;
 
 public class Database {
 	
@@ -14,17 +13,19 @@ public class Database {
 		try {
 			CallDatabasePackage();
 			connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/jee", "root", "");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
 
-	private void CallDatabasePackage() throws ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
+	private void CallDatabasePackage() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static Database getInstance() {
@@ -33,7 +34,7 @@ public class Database {
 			database = new Database();
 		}
 		
-		return null;
+		return database;
 	}
 
 	public Connection getConnection() {
