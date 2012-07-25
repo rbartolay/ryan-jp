@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ryan.beans.Users;
+import com.ryan.bom.AuthenticationBom;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,12 +29,20 @@ public class LoginServlet extends HttpServlet {
     }
     
     protected void processRequests(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
- //   	PrintWriter write = response.getWriter();
-//    	write.print("Hello World");
+
+    	String email = request.getParameter("txtEmail");
+    	String password = request.getParameter("txtPassword");
     	
-    	request.setAttribute("greet", "Hello World");
+    	AuthenticationBom auth = new AuthenticationBom();
+    	Users user = auth.login(email, password);
     	
-    	getServletContext().getRequestDispatcher("/jsp/login.form.jsp").forward(request, response);
+    	if(user != null) {
+    		HttpSession session = request.getSession(true);
+    		session.setAttribute("user", user);
+    	}
+    	
+    	response.sendRedirect("index.jsp");
+    	//getServletContext().getRequestDispatcher("/jsp/login.form.jsp").forward(request, response);
     }
     
 	/**

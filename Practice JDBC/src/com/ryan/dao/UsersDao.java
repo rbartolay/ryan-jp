@@ -19,18 +19,42 @@ public class UsersDao {
 		this.connection = this.database.getConnection();
 	}
 	
-	public ArrayList<Users> retrieveAll() throws SQLException {		
-		String sql = "select * from users";				
-		return buildUserObjectArray(getResultSet(sql));		
+	public ArrayList<Users> retrieveAll() {		
+		String sql = "select * from users";
+		try {
+			return buildUserObjectArray(this.getResultSet(sql));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}		
 	}
-
+	
+	public Users retrieveByEmail(String email) {		
+		String sql = "select * from users where email = '"+ email +"'";		
+		try {
+			return this.buildUserObject(this.getResultSet(sql));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
 	private ArrayList<Users> buildUserObjectArray(ResultSet rs)	throws SQLException {
 		ArrayList<Users> users = new ArrayList<Users>();
 		
 		while(rs.next()) {
-			users.add(new Users(rs.getLong("user_id"), rs.getString("username"), rs.getString("password")));
+			users.add(buildUserObject(rs));
 		}
 		return users;
+	}
+
+	private Users buildUserObject(ResultSet rs) throws SQLException {
+		if(rs.next()) {
+			return new Users(rs.getLong("user_id"), rs.getString("email"), rs.getString("password"));
+		}
+		return null;
 	}
 
 	private ResultSet getResultSet(String sql) throws SQLException {

@@ -12,7 +12,7 @@ public class Database {
 	private Database() {
 		try {
 			CallDatabasePackage();
-			connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/jee", "root", "");
+			connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bchv2", "root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

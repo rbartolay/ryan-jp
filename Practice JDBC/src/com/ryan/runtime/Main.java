@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.ryan.beans.Users;
+import com.ryan.bom.AuthenticationBom;
+import com.ryan.core.bom.Crypt;
 import com.ryan.core.bom.Database;
 import com.ryan.dao.UsersDao;
 
@@ -13,13 +15,13 @@ public class Main {
 	private static UsersDao uDao;
 	
 	public static void main(String[] args) {
-		uDao = new UsersDao();
-		try {
-			iterateUsers(uDao.retrieveAll());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+	/*	uDao = new UsersDao();
+		System.out.println(uDao.retrieveByEmail("es"));*/
+		
+		AuthenticationBom auth = new AuthenticationBom();
+		
+		System.out.println(auth.login("es", "fuck"));
 		
 	}
 

@@ -1,14 +1,11 @@
 package com.ryan.testcases;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import static org.junit.Assert.*;
 
-import com.ryan.beans.Users;
+import org.junit.Test;
 import com.ryan.dao.UsersDao;
 
-import junit.framework.TestCase;
-
-public class UsersDaoCheck extends TestCase {
+public class UsersDaoCheck {
 	
 	private UsersDao uDao;
 	
@@ -16,7 +13,18 @@ public class UsersDaoCheck extends TestCase {
 		this.uDao = new UsersDao();
 	}
 	
-	public void testNotNull() throws SQLException {
-		assertNotNull(this.uDao.retrieveAll());
+	@Test
+	public void checkIfUsersRetrieved() {
+		assertNotNull(uDao.retrieveAll());
+	}
+	
+	@Test
+	public void checkIfEmailExists() {
+		assertNotNull(uDao.retrieveByEmail("es"));
+	}
+	
+	@Test
+	public void checkIfEmailNotExists() {
+		assertNull(uDao.retrieveByEmail("fuck"));
 	}
 }

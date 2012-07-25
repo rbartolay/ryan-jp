@@ -1,17 +1,24 @@
 package com.ryan.beans;
 
+import com.ryan.core.bom.Crypt;
+
 public class Users {
 	public long user_id;
-	public String username;
+	public String email;
 	public String password;
 
 	public Users() {
 		super();
 	}
-	public Users(long user_id, String username, String password) {
+	public Users(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+	public Users(long user_id, String email, String password) {
 		super();
 		this.user_id = user_id;
-		this.username = username;
+		this.email = email;
 		this.password = password;
 	}
 	public long getUser_id() {
@@ -20,11 +27,11 @@ public class Users {
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
@@ -32,6 +39,11 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean validateLogin(String password) {
+		return this.getPassword().equals(Crypt.md5(password));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -54,7 +66,7 @@ public class Users {
 	}
 	@Override
 	public String toString() {
-		return "Users [user_id=" + user_id + ", username=" + username
+		return "Users [user_id=" + user_id + ", email=" + email
 				+ ", password=" + password + "]";
 	}
 }

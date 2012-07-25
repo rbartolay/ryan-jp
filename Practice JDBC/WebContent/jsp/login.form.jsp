@@ -18,9 +18,19 @@
 <%=greet %>
 
 <form action="LoginServlet" method="POST">
-	username : <input type="text" name="txtUsername"><br>
-	password : <input type="password" name="txtPassword">
-	<input type="submit">
+	<table>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" name="txtEmail"></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="txtPassword"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" value="Login"></td>
+		</tr>
+	</table>	
 </form>
 </body>
 </html>
